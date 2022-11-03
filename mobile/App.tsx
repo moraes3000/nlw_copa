@@ -11,6 +11,7 @@ import { SignIn } from "./src/screens/SignIn";
 import { New } from "./src/screens/New";
 import { Find } from "./src/screens/Find";
 import { Pools } from "./src/screens/Pools";
+import { Routes } from "./src/routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -31,7 +32,7 @@ export default function App() {
         {
           fontsLoaded ?
             // <SignIn /> :
-            <Pools /> :
+            <Routes /> :
             <Loading />
         }
       </AuthContextProvider>

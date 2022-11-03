@@ -3,7 +3,7 @@
     "name": "NLWCOPAmobile",
     "slug": "NLWCOPAmobile",
     
-    "scheme": "NLWCOPAmobile",
+    "scheme": "nlwcopamobile",
 
     "version": "1.0.0",
     "orientation": "portrait",
