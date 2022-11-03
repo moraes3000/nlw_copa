@@ -7,6 +7,7 @@ import { userRoutes } from './routes/user'
 import { guessRoutes } from './routes/guess'
 import { authRoutes } from './routes/auth'
 import { gamesRoutes } from './routes/game'
+import jwt from '@fastify/jwt'
 
 async function bootstrap() {
   const fastify = Fastify({
@@ -15,6 +16,10 @@ async function bootstrap() {
 
   await fastify.register(cors, {
     origin: true // passar o DNS certo em produção
+  })
+
+  await fastify.register(jwt, {
+    secret: "aquiVaiEnv"
   })
 
   await fastify.register(authRoutes)
