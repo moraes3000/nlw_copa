@@ -4,6 +4,7 @@ import ShortUniqueId from 'short-unique-id'
 
 import { prisma } from "../lib/prisma"
 import { authenticate } from "../plugin/authenticate"
+import fastifyJwt from "@fastify/jwt"
 
 export async function poolRoutes(fastify: FastifyInstance) {
   fastify.get('/pools/count', async () => {
@@ -112,7 +113,40 @@ export async function poolRoutes(fastify: FastifyInstance) {
   })
 
 
+  fastify.get('/pools', { onRequest: [authenticate] }, async (request) => {
+    const pools = await prisma.pool.findMany({
+      where: {
+        participants: {
+          some: {
+            userId: request.user.sub
+          }
+        }
+      },
+      include: {
+        owner: true,
+        _count: {
+          select: {
+            participants: true
+          }
+        },
+        participants: {
+          select: {
+            id: true,
+            user: {
+              select: {
+                avatarUrl: true,
+                nome: true
+              }
+            }
+          },
+          take: 4
+        }
 
+      }
+    })
+
+    return { pools }
+  })
 
 }
 
