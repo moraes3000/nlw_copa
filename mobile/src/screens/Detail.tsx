@@ -3,6 +3,7 @@ import { VStack, Heading, Text, useToast, HStack } from "native-base";
 import React, { useEffect, useState } from "react";
 import { Share } from "react-native";
 import { EmptyMyPoolList } from "../components/EmptyMyPoolList";
+import { Guesses } from "../components/Guesses";
 import { Header } from "../components/Header";
 import { Option } from "../components/Option";
 import { PoolCardPros } from "../components/PoolCard";
@@ -84,6 +85,7 @@ export function Detail() {
             />
 
           </HStack>
+          <Guesses poolId={details.id} />
         </VStack>
         :
         <EmptyMyPoolList code={details.code} />
