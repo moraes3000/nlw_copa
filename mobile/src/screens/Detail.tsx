@@ -1,6 +1,7 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { VStack, Heading, Text, useToast, HStack } from "native-base";
 import React, { useEffect, useState } from "react";
+import { Share } from "react-native";
 import { EmptyMyPoolList } from "../components/EmptyMyPoolList";
 import { Header } from "../components/Header";
 import { Option } from "../components/Option";
@@ -50,6 +51,12 @@ export function Detail() {
 
   }
 
+  async function handleCodeShare() {
+    await Share.share({
+      message: details.code
+    })
+  }
+
   useEffect(() => {
     fetchPoolsDetails()
   }, [])
@@ -57,7 +64,7 @@ export function Detail() {
 
   return (
     <VStack flex={1} bgColor="gray.900">
-      <Header title={`---Detail -  ${id}  `} showBackButton />
+      <Header title={`---Detail -  ${id}  `} showBackButton showShareButton onShare={handleCodeShare} />
 
 
       {details._count?.participants > 0 ?
