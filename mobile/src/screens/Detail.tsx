@@ -1,8 +1,9 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { VStack, Heading, Text, useToast } from "native-base";
+import { VStack, Heading, Text, useToast, HStack } from "native-base";
 import React, { useEffect, useState } from "react";
 import { EmptyMyPoolList } from "../components/EmptyMyPoolList";
 import { Header } from "../components/Header";
+import { Option } from "../components/Option";
 import { PoolCardPros } from "../components/PoolCard";
 import { PoolHeader } from "../components/PoolHeader";
 import { api } from "../services/axios";
@@ -18,6 +19,8 @@ export function Detail() {
 
   const [details, setDetail] = useState<PoolCardPros>({} as PoolCardPros)
   const [isLoading, setIsLoading] = useState(false)
+  const [optionSelected, setOptionSelected] = useState<'guesses' | 'ranking'>('guesses')
+
 
   const toast = useToast()
 
@@ -56,12 +59,29 @@ export function Detail() {
     <VStack flex={1} bgColor="gray.900">
       <Header title={`---Detail -  ${id}  `} showBackButton />
 
-      <VStack px={5} flex={1}>
-        {details._count?.participants > 0 ?
-          <PoolHeader data={details} /> :
-          <EmptyMyPoolList code={details.code} />
-        }
-      </VStack>
+
+      {details._count?.participants > 0 ?
+        <VStack px={5} flex={1}>
+          <PoolHeader data={details} />
+
+          <HStack bgColor='gray.800' p={1} rounded='sm' mb={8} >
+            <Option
+              title={"Seus palpites"}
+              isSelected={optionSelected === 'guesses'}
+              onPress={() => setOptionSelected('guesses')}
+            />
+            <Option
+              title={"Ranking"}
+              isSelected={optionSelected === 'ranking'}
+              onPress={() => setOptionSelected('ranking')}
+            />
+
+          </HStack>
+        </VStack>
+        :
+        <EmptyMyPoolList code={details.code} />
+      }
+
 
     </VStack>
   )
