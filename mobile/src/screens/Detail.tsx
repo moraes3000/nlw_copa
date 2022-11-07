@@ -65,7 +65,7 @@ export function Detail() {
 
   return (
     <VStack flex={1} bgColor="gray.900">
-      <Header title={`---Detail -  ${id}  `} showBackButton showShareButton onShare={handleCodeShare} />
+      <Header title={`Detail `} showBackButton showShareButton onShare={handleCodeShare} />
 
 
       {details._count?.participants > 0 ?
@@ -85,7 +85,7 @@ export function Detail() {
             />
 
           </HStack>
-          <Guesses poolId={details.id} />
+          <Guesses poolId={details.id} code={details.code} />
         </VStack>
         :
         <EmptyMyPoolList code={details.code} />
